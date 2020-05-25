@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cc.mapper.TypeMapper">
+
+    <!--新增分类-->
+    <insert id="saveType" parameterType="Type" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into t_type(name) values(#{name})
+    </insert>
+
+    <!--根据id获取分类-->
+    <select id="getType" resultType="Type">
+        select * from t_type where id = #{id}
+    </select>
+
+    <!--根据分类的名称获取分类-->
+    <select id="getTypeByName" resultType="Type">
+        select * from t_type where name = #{name}
+    </select>
+
+    <!--获取所有的分类-->
+    <select id="getAllType" resultType="Type">
+        select * from t_type
+    </select>
+
+    <!--首页右侧展示type对应的博客数量-->
+    <select id="getBlogType" resultMap="BlogType">
+        select t.id tid, t.name, b.id bid, b.title, b.type_id
+        from t_type t, t_blog b
+        where t.id = b.type_id
+    </select>
+    <!--博客的id跟分类的id可能会冲突-->
+    <resultMap id="BlogType" type="Type">
+        <id property="id" column="tid"/>
+        <result property="name" column="name"/>
+        <collection property="blogs" ofType="Blog">
+            <id property="id" column="bid"/>
+            <result property="title" column="title"/>
+            <result property="typeId" column="type_id"/>
+        </collection>
+    </resultMap>
+
+    <!--修改分类-->
+    <update id="updateType" parameterType="Type">
+        update t_type set name = #{name} where id = #{id}
+    </update>
+
+    <!--删除分类-->
+    <delete id="deleteType">
+        delete from t_type where id = #{id}
+    </delete>
+</mapper>
