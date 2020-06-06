@@ -10,3 +10,5 @@
 2、再者就是前端页面的改进。我前端还很小白小白。哈哈哈哈
 
 还有很多不足之处，再多多学习吧。
+
+效果图：可以去csdn上看。https://blog.csdn.net/hello_cmy/article/details/106327843
